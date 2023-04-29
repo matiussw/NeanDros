@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeanDros.Shared", "NeanDros.Shared\NeanDros.Shared.csproj", "{5254F74A-8CD7-48ED-A090-34A73FC8C7D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeanDros.Shared", "NeanDros.Shared\NeanDros.Shared.csproj", "{5254F74A-8CD7-48ED-A090-34A73FC8C7D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeanDros.API", "NeanDross.API\NeanDros.API.csproj", "{48400E30-F08B-4D6F-983F-8FEFD231250C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeanDros.API", "NeanDross.API\NeanDros.API.csproj", "{48400E30-F08B-4D6F-983F-8FEFD231250C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeanDros.WEB", "NeanDros.WEB\NeanDros.WEB.csproj", "{7BFA8C94-BACD-478B-AB19-AED6320D260A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeanDross.WEB", "NeanDross.WEB\NeanDross.WEB.csproj", "{08BB8458-B0E8-4DDE-B26C-5A69F6869692}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{48400E30-F08B-4D6F-983F-8FEFD231250C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48400E30-F08B-4D6F-983F-8FEFD231250C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48400E30-F08B-4D6F-983F-8FEFD231250C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7BFA8C94-BACD-478B-AB19-AED6320D260A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7BFA8C94-BACD-478B-AB19-AED6320D260A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7BFA8C94-BACD-478B-AB19-AED6320D260A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7BFA8C94-BACD-478B-AB19-AED6320D260A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08BB8458-B0E8-4DDE-B26C-5A69F6869692}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08BB8458-B0E8-4DDE-B26C-5A69F6869692}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08BB8458-B0E8-4DDE-B26C-5A69F6869692}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08BB8458-B0E8-4DDE-B26C-5A69F6869692}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

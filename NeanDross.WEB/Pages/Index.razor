@@ -1,0 +1,149 @@
+﻿@page "/"
+@using NeanDros.Shared.DTOs;
+@inject IRepository repository
+@inject NavigationManager navigationManager
+@inject SweetAlertService sweetAlertService
+
+
+<PageTitle>Boletos</PageTitle>
+
+<div class="row row-cols-1 row-cols-4 g-1 mt-1 justify-content-center text-center">
+    <div style="display: flex; align-items: center;">
+
+      <table style="margin: auto; background-color: white;">
+  <tr>
+                <td><input type="text" @bind="InputValue" /></td>
+                <td><input type="date" @bind="Fecha" /></td>
+                <td> <button @onclick="HandleButtonClick">Validar</button></td>
+                <td>
+                    <select>
+                        <option value="norte">Norte</option>
+                        <option value="sur">Sur</option>
+                        <option value="oriental">Oriental</option>
+                        <option value="occidental">Occidental</option>
+                    </select>
+                </td>
+  </tr>
+  <tr>
+                <td>TOTAL BOLETOS SIN VALIDAR</td>
+                <td>   @num?.Count</td>
+                <td><button @onclick="SaveChangesAsync">Registrar Boleta</button></td>
+    <td></td>
+  </tr>
+</table>
+
+
+        
+        
+
+       
+    </div>
+    @if (mostrarElemento)
+    {
+        <div>Este es el elemento que quieres mostrar</div>
+    }
+</div>
+@code {
+    private Ticket? ticket;
+    private List<Ticket>? num;
+    private List<string>? result;
+    private TicketPDTO ticketPDTO = new TicketPDTO();
+    private EventCallback<string> onClick; 
+
+    [Parameter]
+    public EventCallback<string> OnButtonClick { get; set; }
+
+    public int TicketId { get; set; }
+    public string InputValue { get; set; } = string.Empty;
+    public DateTime Fecha { get; set; }
+
+    private bool mostrarElemento = false;
+
+    protected async override Task OnInitializedAsync()
+    {
+        await LoadProductAsync();
+    }
+
+    private async Task LoadProductAsync()
+    {
+
+        var httpResponse = await repository.Get<List<Ticket>>($"/api/tickets/totalPages");
+        if (httpResponse.Error)
+        {
+
+            var message = await httpResponse.GetErrorMessageAsync();
+            await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
+            return;
+        }
+
+        num = httpResponse.Response!;
+    }
+
+    private async Task ValidateId()
+    {
+
+
+        var httpResponse = await repository.Get<Ticket>($"/api/tickets/ValidateTicket?ticketId={InputValue}");
+
+        if (httpResponse.Error)
+        {
+            await sweetAlertService.FireAsync("Error", "Boleta no válida", SweetAlertIcon.Error);
+            return;
+        }
+        await ValidateIdConsult();
+    }
+    private async Task ValidateIdConsult()
+    {
+        var httpResponse = await repository.Get<Ticket>($"/api/tickets/status?ticketId={InputValue}");
+        ticket = httpResponse.Response!;
+
+
+        if (httpResponse.Error)
+        {
+            string messageU = "";
+            foreach (var ticket in num!)
+            {
+                messageU = $"<h2>La boleta fue usada en la fecha {ticket.Date}</h2>" +
+            $"<h3>  y se registro en la porteria{ticket.Entrance}</h3>";
+
+            }
+            await sweetAlertService.FireAsync("Error", messageU, SweetAlertIcon.Error);
+        }
+        ticketPDTO = ToTicket(ticket);
+     
+    }
+
+    private async Task SaveChangesAsync()
+    {
+        var httpResponse = await repository.Put("/api/tickets", ticketPDTO);
+        if (httpResponse.Error)
+        {
+            var message = await httpResponse.GetErrorMessageAsync();
+            await sweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
+            return;
+        }
+
+
+    }
+
+    private TicketPDTO ToTicket(Ticket ticket)
+    {
+        return new TicketPDTO
+            {
+                Date = ticket.Date,
+                TicketStatus = ticket.TicketStatus,
+                Entrance = ticket.Entrance
+        };
+    }
+
+    private void HandleButtonClick()
+    {
+        // Lógica del evento del botón
+        OnButtonClick.InvokeAsync("Se hizo clic en el botón");
+    }
+
+    private void MostrarElemento()
+    {
+        mostrarElemento = true;
+    }
+}

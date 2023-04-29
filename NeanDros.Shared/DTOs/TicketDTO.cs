@@ -4,13 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NeanDros.Shared.Enums
+namespace NeanDros.Shared.DTOs
 {
-    public enum Entrace
+    public class TicketDTO
     {
-        norte, 
-        sur,
-        oriental, 
-        occidental
+        public int TotalTicket { get; set; }
     }
 }

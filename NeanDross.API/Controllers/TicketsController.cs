@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using NeanDross.API.Data;
 using NeanDros.Shared.Entities;
-
+using System.Threading.Tasks;
+using System.Linq;
+using System;
 
 namespace NeanDros.API.Controllers
 {
@@ -20,7 +22,7 @@ namespace NeanDros.API.Controllers
         [HttpGet("totalPages")]
         public async Task<IActionResult> GetAsync()
         {
-            return Ok(await _dataContext.Tickets.CountAsync());
+            return Ok(await _dataContext.Tickets.Where(s => s.TicketStatus == false).ToListAsync());
         }
 
         [HttpGet("ValidateTicket")]
